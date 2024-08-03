@@ -20,11 +20,11 @@ type Users interface {
 
 type Timers interface {
 	Create(ctx context.Context, userId int, name string) (id int, err error)
-	Toggle(ctx context.Context, id int, startTime time.Time, workTime time.Duration) (err error)
-	Update(ctx context.Context, id int, name string) (err error)
-	GetById(ctx context.Context, id int) (name string, startTime time.Time, workTime time.Duration, err error)
+	Toggle(ctx context.Context, id int, userId int, startTime time.Time, workTime time.Duration) (err error)
+	Update(ctx context.Context, id int, userId int, name string) (err error)
+	GetById(ctx context.Context, id int, userId int) (name string, startTime time.Time, workTime time.Duration, err error)
 	GetByUserId(ctx context.Context, userId int) (timers []internal.Timer, err error)
-	Delete(ctx context.Context, id int) (err error)
+	Delete(ctx context.Context, id int, userId int) (err error)
 }
 
 type Storage struct {

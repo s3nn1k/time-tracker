@@ -30,7 +30,7 @@ func (u *Users) Create(ctx context.Context, name string, passwordHash string) (i
 }
 
 func (u *Users) GetId(ctx context.Context, name string, passwordHash string) (id int, err error) {
-	q := fmt.Sprintf("SELECT id FROM %s WHERE name=$1, password_hash=$2", usersTable)
+	q := fmt.Sprintf("SELECT id FROM %s WHERE name=$1 AND password_hash=$2", usersTable)
 
 	err = u.db.QueryRowContext(ctx, q, name, passwordHash).Scan(&id)
 	if err != nil {

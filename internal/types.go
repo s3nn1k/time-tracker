@@ -3,9 +3,9 @@ package internal
 import "time"
 
 type User struct {
-	Id       int    `json:"id"`
-	Name     string `json:"name"`
-	Password string `json:"password"`
+	Id       int    `json:"-"`
+	Name     string `json:"name,omitempty"`
+	Password string `json:"password,omitempty"`
 }
 
 type Timer struct {

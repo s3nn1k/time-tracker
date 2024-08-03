@@ -31,10 +31,10 @@ func (t *Timers) Create(ctx context.Context, userId int, name string) (id int, e
 	return id, nil
 }
 
-func (t *Timers) Toggle(ctx context.Context, id int, startTime time.Time, workTime time.Duration) (err error) {
-	q := fmt.Sprintf("UPDATE %s SET start_time=$1, work_time=$2 WHERE id=$3", timersTable)
+func (t *Timers) Toggle(ctx context.Context, id int, userId int, startTime time.Time, workTime time.Duration) (err error) {
+	q := fmt.Sprintf("UPDATE %s SET start_time=$1, work_time=$2 WHERE id=$3 AND user_id=$4", timersTable)
 
-	res, err := t.db.ExecContext(ctx, q, startTime.Unix(), int64(workTime.Seconds()), id)
+	res, err := t.db.ExecContext(ctx, q, startTime.Unix(), int64(workTime.Seconds()), id, userId)
 	if err != nil {
 		return err
 	}
@@ -46,10 +46,10 @@ func (t *Timers) Toggle(ctx context.Context, id int, startTime time.Time, workTi
 	return nil
 }
 
-func (t *Timers) Update(ctx context.Context, id int, name string) (err error) {
-	q := fmt.Sprintf("UPDATE %s SET name=$1 WHERE id=$2", timersTable)
+func (t *Timers) Update(ctx context.Context, id int, userId int, name string) (err error) {
+	q := fmt.Sprintf("UPDATE %s SET name=$1 WHERE id=$2 AND user_id=$3", timersTable)
 
-	res, err := t.db.ExecContext(ctx, q, name, id)
+	res, err := t.db.ExecContext(ctx, q, name, id, userId)
 	if err != nil {
 		return err
 	}
@@ -61,13 +61,13 @@ func (t *Timers) Update(ctx context.Context, id int, name string) (err error) {
 	return nil
 }
 
-func (t *Timers) GetById(ctx context.Context, id int) (name string, startTime time.Time, workTime time.Duration, err error) {
-	q := fmt.Sprintf("SELECT name, start_time, work_time FROM %s WHERE id=$1", timersTable)
+func (t *Timers) GetById(ctx context.Context, id int, userId int) (name string, startTime time.Time, workTime time.Duration, err error) {
+	q := fmt.Sprintf("SELECT name, start_time, work_time FROM %s WHERE id=$1 AND user_id=$2", timersTable)
 
 	var unixStartTime int64
 	var secWorkTime int64
 
-	err = t.db.QueryRowContext(ctx, q, id).Scan(&name, &unixStartTime, &secWorkTime)
+	err = t.db.QueryRowContext(ctx, q, id, userId).Scan(&name, &unixStartTime, &secWorkTime)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return "", time.Time{}, 0, storage.ErrNotExist
@@ -113,10 +113,10 @@ func (t *Timers) GetByUserId(ctx context.Context, userId int) (timers []internal
 	return timers, nil
 }
 
-func (t *Timers) Delete(ctx context.Context, id int) (err error) {
-	q := fmt.Sprintf("DELETE FROM %s WHERE id=$1", timersTable)
+func (t *Timers) Delete(ctx context.Context, id int, userId int) (err error) {
+	q := fmt.Sprintf("DELETE FROM %s WHERE id=$1 AND user_id=$2", timersTable)
 
-	res, err := t.db.ExecContext(ctx, q, id)
+	res, err := t.db.ExecContext(ctx, q, id, userId)
 	if err != nil {
 		return err
 	}

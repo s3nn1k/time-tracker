@@ -14,13 +14,11 @@ var (
 type Service struct {
 	*Users
 	*Timers
-	*Auth
 }
 
 func New(s *storage.Storage) *Service {
 	return &Service{
 		Users:  newUsers(s.Users),
 		Timers: newTimers(s.Timers),
-		Auth:   newAuth(),
 	}
 }
