@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	jwtoken "github.com/Time-Tracker/internal/auth/jwt"
+	"github.com/Time-Tracker/internal/auth/jwt"
 	"github.com/Time-Tracker/internal/config"
 	"github.com/Time-Tracker/internal/handler"
 	"github.com/Time-Tracker/internal/service"
@@ -44,7 +44,7 @@ func main() {
 
 	srvc := service.New(strg)
 
-	auth := jwtoken.NewAuth(cfg.Salt, cfg.JWTTTL, cfg.JWTKey)
+	auth := jwt.NewAuth(cfg.Salt, cfg.JWTTTL, cfg.JWTKey)
 
 	h := handler.New(srvc, auth)
 
