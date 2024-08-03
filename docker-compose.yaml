@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: 'postgres:latest'
+    container_name: db
+    ports:
+     - '5432:5432'
+    environment:
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=postgres
+     - POSTGRES_DB=postgres
+
+  adminer:
+    image: 'adminer:latest'
+    container_name: adm
+    ports:
+      - 8080:8080
