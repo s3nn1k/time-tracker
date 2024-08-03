@@ -11,9 +11,3 @@ services:
      - POSTGRES_USER=postgres
      - POSTGRES_PASSWORD=postgres
      - POSTGRES_DB=postgres
-
-  adminer:
-    image: 'adminer:latest'
-    container_name: adm
-    ports:
-      - 8080:8080

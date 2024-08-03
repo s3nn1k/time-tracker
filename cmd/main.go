@@ -1,11 +1,16 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
 
+	"github.com/Time-Tracker/cmd/config"
 	"github.com/Time-Tracker/internal/auth/jwt"
-	"github.com/Time-Tracker/internal/config"
 	"github.com/Time-Tracker/internal/handler"
 	"github.com/Time-Tracker/internal/service"
 	"github.com/Time-Tracker/internal/storage/postgres"
@@ -38,6 +43,8 @@ func main() {
 	err = postgres.InitTables(schemaPath, db)
 	if err != nil {
 		log.Println(err)
+	} else {
+		log.Println("Tables created successfully")
 	}
 
 	strg := postgres.NewStorage(db)
@@ -50,13 +57,39 @@ func main() {
 
 	r := h.InitRoutes()
 
-	s := http.Server{
-		Addr:    "localhost:8080",
-		Handler: r,
+	addr := fmt.Sprintf("%s:%s", cfg.Host, cfg.ServerPort)
+
+	srvr := http.Server{
+		Addr:           addr,
+		MaxHeaderBytes: 1 << 20,
+		Handler:        r,
+		WriteTimeout:   cfg.WriteTimeout,
+		ReadTimeout:    cfg.ReadTimeout,
 	}
 
-	s.ListenAndServe()
+	go func() {
+		if err := srvr.ListenAndServe(); err != nil {
+			log.Println(err)
+		}
+	}()
 
-	// TODO: add graceful shutdown
-	// TODO: make Dockerfile for application
+	log.Println("Service started successfully")
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+
+	log.Println("Shutting down service...")
+
+	err = srvr.Shutdown(context.Background())
+	if err != nil {
+		log.Println(err)
+	}
+
+	err = db.Close()
+	if err != nil {
+		log.Println(err)
+	}
+
+	log.Println("Service shutdown successfully")
 }
