@@ -3,11 +3,34 @@ version: '3.9'
 services:
 
   postgres:
-    image: 'postgres:latest'
-    container_name: db
+    image: postgres:latest
+    container_name: ${DB_HOST}
     ports:
-     - '5432:5432'
+     - 5432:${P_DB_PORT}
     environment:
-     - POSTGRES_USER=postgres
-     - POSTGRES_PASSWORD=postgres
-     - POSTGRES_DB=postgres
+     - POSTGRES_USER=${P_DB_USER}
+     - POSTGRES_PASSWORD=${P_DB_PASS}
+     - POSTGRES_DB=${P_DB_NAME}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 3s
+      retries: 1
+    networks:
+      - appnet
+
+  time-tracker:
+    image: time-tracker:latest
+    container_name: ${SERVER_HOST}
+    ports:
+     - 8080:${SERVER_PORT}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - appnet
+
+networks:
+ appnet:
+  name: appnet
+  driver: bridge

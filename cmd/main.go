@@ -35,7 +35,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	db, err := postgres.NewDB(cfg.Host, cfg.DBPort, cfg.DBUser, cfg.DBPassword, cfg.DBName, cfg.DBSSLMode)
+	db, err := postgres.NewDB(cfg.DBHost, cfg.DBPort, cfg.DBUser, cfg.DBPassword, cfg.DBName, cfg.DBSSLMode)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -57,7 +57,7 @@ func main() {
 
 	r := h.InitRoutes()
 
-	addr := fmt.Sprintf("%s:%s", cfg.Host, cfg.ServerPort)
+	addr := fmt.Sprintf("%s:%s", cfg.ServerHost, cfg.ServerPort)
 
 	srvr := http.Server{
 		Addr:           addr,
