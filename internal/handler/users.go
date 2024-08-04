@@ -44,9 +44,9 @@ func (h *Handler) signIn(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Write(data)
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Header().Add("Content-Type", "application/json")
+	w.Write(data)
 }
 
 func (h *Handler) signUp(w http.ResponseWriter, r *http.Request) {
@@ -90,9 +90,9 @@ func (h *Handler) signUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Write(data)
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Header().Add("Content-Type", "application/json")
+	w.Write(data)
 }
 
 func (h *Handler) UpdateUserName(w http.ResponseWriter, r *http.Request, id int) {

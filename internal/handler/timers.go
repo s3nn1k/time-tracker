@@ -30,9 +30,9 @@ func (h *Handler) CreateTimer(w http.ResponseWriter, r *http.Request, id int) {
 		return
 	}
 
-	w.Write(data)
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Header().Add("Content-Type", "application/json")
+	w.Write(data)
 }
 
 func (h *Handler) StartTimer(w http.ResponseWriter, r *http.Request, id int) {
@@ -107,9 +107,9 @@ func (h *Handler) GetTimers(w http.ResponseWriter, r *http.Request, id int) {
 		return
 	}
 
-	w.Write(data)
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Header().Add("Content-Type", "application/json")
+	w.Write(data)
 }
 
 func (h *Handler) GetTimer(w http.ResponseWriter, r *http.Request, id int) {
@@ -142,9 +142,9 @@ func (h *Handler) GetTimer(w http.ResponseWriter, r *http.Request, id int) {
 		return
 	}
 
-	w.Write(data)
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Header().Add("Content-Type", "application/json")
+	w.Write(data)
 }
 
 func (h *Handler) DeleteTimer(w http.ResponseWriter, r *http.Request, id int) {
