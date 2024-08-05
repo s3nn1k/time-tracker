@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/Time-Tracker/internal"
-	"github.com/Time-Tracker/internal/storage"
+	"github.com/s3nn1k/time-tracker/internal"
+	"github.com/s3nn1k/time-tracker/internal/storage"
 )
 
 func (h *Handler) signIn(w http.ResponseWriter, r *http.Request) {

@@ -3,7 +3,7 @@ package service
 import (
 	"errors"
 
-	"github.com/Time-Tracker/internal/storage"
+	"github.com/s3nn1k/time-tracker/internal/storage"
 )
 
 var (

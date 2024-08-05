@@ -5,7 +5,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/Time-Tracker/internal"
+	"github.com/s3nn1k/time-tracker/internal"
 )
 
 var ErrNotExist = errors.New("item not exist in storage")

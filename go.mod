@@ -1,4 +1,4 @@
-module github.com/Time-Tracker
+module github.com/s3nn1k/time-tracker
 
 go 1.22.5
 

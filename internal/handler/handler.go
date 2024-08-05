@@ -3,8 +3,8 @@ package handler
 import (
 	"net/http"
 
-	"github.com/Time-Tracker/internal/auth"
-	"github.com/Time-Tracker/internal/service"
+	"github.com/s3nn1k/time-tracker/internal/auth"
+	"github.com/s3nn1k/time-tracker/internal/service"
 )
 
 type Handler struct {

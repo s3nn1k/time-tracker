@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Time-Tracker/internal"
+	"github.com/s3nn1k/time-tracker/internal"
 )
 
 const timeLayout = "2006-01-02 03:04PM"

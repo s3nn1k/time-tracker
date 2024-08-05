@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Time-Tracker/internal"
-	"github.com/Time-Tracker/internal/storage"
+	"github.com/s3nn1k/time-tracker/internal"
+	"github.com/s3nn1k/time-tracker/internal/storage"
 )
 
 type Timers struct {

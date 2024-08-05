@@ -9,13 +9,13 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/Time-Tracker/cmd/config"
-	"github.com/Time-Tracker/internal/auth/jwt"
-	"github.com/Time-Tracker/internal/handler"
-	"github.com/Time-Tracker/internal/service"
-	"github.com/Time-Tracker/internal/storage/postgres"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
+	"github.com/s3nn1k/time-tracker/cmd/config"
+	"github.com/s3nn1k/time-tracker/internal/auth/jwt"
+	"github.com/s3nn1k/time-tracker/internal/handler"
+	"github.com/s3nn1k/time-tracker/internal/service"
+	"github.com/s3nn1k/time-tracker/internal/storage/postgres"
 )
 
 const (

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Time-Tracker/internal"
+	"github.com/s3nn1k/time-tracker/internal"
 )
 
 func (h *Handler) CreateTimer(w http.ResponseWriter, r *http.Request, id int) {
